@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string></string>
+	<key>connections</key>
+	<dict>
+		<key>4D04F124-E355-48D9-9A9D-1F4A862531CD</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>CBED4E04-8012-418C-8A9E-E815E2799266</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>CBED4E04-8012-418C-8A9E-E815E2799266</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>A83AF0B4-8CF8-41EF-ACCE-7B7397D06065</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Hugues Bernet-Rollande</string>
+	<key>description</key>
+	<string>Shortcuts to some accessibility settings</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Accessibility</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Accessibility toggle</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>A83AF0B4-8CF8-41EF-ACCE-7B7397D06065</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>a = "{query}"
+
+def osascript(script)
+  system 'osascript', *script.split(/\n/).map { |line| ['-e', line] }.flatten
+end
+
+osascript &lt;&lt;-END
+  tell application "System Preferences"
+    activate
+    reveal anchor "Seeing_Display" of pane id "com.apple.preference.universalaccess"
+	delay 0.1
+    tell application "System Events" to tell process "System Preferences"
+        click the checkbox "#{a}" of window "Accessibility"
+    end tell
+  end tell
+  tell application "System Preferences" to quit
+END
+
+puts a</string>
+				<key>type</key>
+				<integer>2</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CBED4E04-8012-418C-8A9E-E815E2799266</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>accessibility</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>script</key>
+				<string>./filter.rb "{query}"</string>
+				<key>subtext</key>
+				<string>start typing a settings key</string>
+				<key>title</key>
+				<string>Toggle accessibilities settings</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>4D04F124-E355-48D9-9A9D-1F4A862531CD</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>Allow to toggle some of the system accessibility settings (grayscale, invert colors, …).
+
+Usage:
+
+	- accessibility Invert Colors
+	- accessibility Use grayscale
+	- accessibility …
+
+Script auto complete the available settings.</string>
+	<key>uidata</key>
+	<dict>
+		<key>4D04F124-E355-48D9-9A9D-1F4A862531CD</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>A83AF0B4-8CF8-41EF-ACCE-7B7397D06065</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>CBED4E04-8012-418C-8A9E-E815E2799266</key>
+		<dict>
+			<key>ypos</key>
+			<real>120</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>http://xdev.fr</string>
+</dict>
+</plist>
